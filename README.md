@@ -1,1 +1,1 @@
-# MY Capstone Project
+# My Capstone Project
