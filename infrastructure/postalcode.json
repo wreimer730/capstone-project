@@ -57,7 +57,7 @@
       },
     "Item5": {
         "postalcode": {
-          "N": "20096"
+          "S": "20096"
         },
         "city": {
           "S": "Hamburg"

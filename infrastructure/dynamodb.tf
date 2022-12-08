@@ -4,7 +4,7 @@ locals {
 }
 
 resource "aws_dynamodb_table" "basic-dynamodb-table" {
-    name           = "CapstoneDB"
+    name           = "capstoneDB"
     billing_mode   = "PROVISIONED"
     read_capacity  = 20
     write_capacity = 20
@@ -32,7 +32,7 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
 }
 
 resource "aws_dynamodb_table" "postalcodelist" {
-    name           = "PoCpostalcodelist"
+    name           = "pocpostalcodelist"
     billing_mode   = "PROVISIONED"
     read_capacity  = 20
     write_capacity = 20
