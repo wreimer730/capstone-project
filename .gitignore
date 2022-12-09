@@ -1,4 +1,4 @@
 .terraform*
-src/*
-lambda/package
+src/zip/*
+src/lambda/package
 terraform.tfstate*
