@@ -1,5 +1,5 @@
 locals {
-  postaljson = file("./postalcode.json")
+  postaljson = file("files/postalcode.json")
   postaldata = jsondecode(local.postaljson)
 }
 
