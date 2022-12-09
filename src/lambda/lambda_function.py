@@ -1,11 +1,12 @@
 import json
+from decimal import Decimal
+
 import boto3
 import requests
-from decimal import Decimal
 
 mybucket = "testbucket-wladmir-reimer-202211121456"
 url = "https://creativecommons.tankerkoenig.de/json/list.php?lat=53.482549290794765&sort=dist&lng=10.148804885001583&rad=10&type=all&apikey=541d5d5f-65dd-deea-5adf-e7388100a4b2"
-dynamodb = "CapstoneDB"
+dynamodb = "capstoneDB"
 
 def put_dynamodb_data(jsondata, dynamodb):
     #API expect data in dictionary format
