@@ -6,5 +6,5 @@ cd package
 zip -r ../capstone-lambda.zip .
 cd ..
 zip capstone-lambda.zip lambda_function.py
-mv capstone-lambda.zip ../src
+mv capstone-lambda.zip ../pkg
 rm -rf package
