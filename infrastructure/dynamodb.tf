@@ -20,15 +20,6 @@ resource "aws_dynamodb_table" "basic-dynamodb-table" {
             type = "N"
     }
 
-    global_secondary_index {
-        name               = "Index"
-        hash_key           = "id"
-        range_key          = "dist"
-        write_capacity     = 10
-        read_capacity      = 10
-        projection_type    = "INCLUDE"
-        non_key_attributes = ["Bla"]
-    }
 }
 
 resource "aws_dynamodb_table" "postalcodelist" {
@@ -48,15 +39,6 @@ resource "aws_dynamodb_table" "postalcodelist" {
             type = "S"
     }
 
-    global_secondary_index {
-        name               = "Index"
-        hash_key           = "postalcode"
-        range_key          = "city"
-        projection_type    = "INCLUDE"
-        write_capacity     = 10
-        read_capacity      = 10
-        non_key_attributes = ["lng", "lat"]
-    }
 }
 resource "aws_dynamodb_table_item" "postalcodedata" {
   for_each = local.postaldata
