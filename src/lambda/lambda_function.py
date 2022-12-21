@@ -4,8 +4,13 @@ from decimal import Decimal
 import boto3
 import requests
 
-mybucket = "testbucket-wladmir-reimer-202211121456"
-url = "https://creativecommons.tankerkoenig.de/json/list.php?lat=53.482549290794765&sort=dist&lng=10.148804885001583&rad=10&type=all&apikey=541d5d5f-65dd-deea-5adf-e7388100a4b2"
+apikey = "541d5d5f-65dd-deea-5adf-e7388100a4b2"
+lat = "52.516327657577186"
+lng = "13.377902885138017"
+rad = "25"
+type = "all"
+url = "https://creativecommons.tankerkoenig.de/json/list.php?lat={0}&lng={1}&rad={2}&type={3}&apikey={4}".format(lat,lng,rad,type,apikey)
+
 dynamodb = "capstoneDB"
 
 def put_dynamodb_data(jsondata, dynamodb):
@@ -21,17 +26,19 @@ def get_data(url):
     job_data = response.json()
     return job_data
 
-def upload_data(jsondata, bucket_name):
-    s3 = boto3.client('s3')
-    for job in jsondata["stations"]:
-        s3.put_object(Body=json.dumps(job), Bucket=bucket_name, Key=job["slug"]+ ".json")
-
-def empty_bucket(bucket_name):
-    bucket = boto3.resource('s3').Bucket(bucket_name)
-    bucket.objects.all().delete()
+#TODO: implement get data from postal code dynamodb table
+# def get_all_data():
+#     # get all dynamodb postal code data - json
+#     database = boto3.resource('dynamodb')
+#     table = database.Table(dynamodb)
+#     # create jsondatalist
+#     jsondatalist = []
+#     # iterate json, get every city and get lat, lng
+#         # pick every lng, lat for every city
+#         # create temp_url
+#         get_data(temp_url)
+#         # create jsondata and attach to global jsondatalist
+#     # return global jsondatalist
 
 def lambda_handler(event, context): 
-    ### main section
-    #empty_bucket(mybucket)
-    #upload_data(get_data(url),mybucket)
     put_dynamodb_data(get_data(url), dynamodb)

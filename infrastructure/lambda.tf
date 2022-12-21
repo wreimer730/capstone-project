@@ -2,7 +2,10 @@ data "aws_iam_role" "labrole" {
   name = "LabRole"
 }
 
-resource "aws_lambda_function" "test_lambda" {
+resource "aws_lambda_function" "capstone" {
+  depends_on = [
+    aws_dynamodb_table.basic-dynamodb-table
+  ]
   # If the file is not in the current working directory you will need to include a
   # path.module in the filename.
   filename      = "../src/zip/capstone-lambda.zip"
@@ -29,13 +32,22 @@ resource "aws_cloudwatch_event_rule" "every_sixty_minutes" {
 resource "aws_cloudwatch_event_target" "check_foo_every_sixty_minutes" {
     rule = aws_cloudwatch_event_rule.every_sixty_minutes.name
     target_id = "test_lambda"
-    arn = aws_lambda_function.test_lambda.arn
+    arn = aws_lambda_function.capstone.arn
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch_to_call_check_foo" {
     statement_id = "AllowExecutionFromCloudWatch"
     action = "lambda:InvokeFunction"
-    function_name = aws_lambda_function.test_lambda.function_name
+    function_name = aws_lambda_function.capstone.function_name
     principal = "events.amazonaws.com"
     source_arn = aws_cloudwatch_event_rule.every_sixty_minutes.arn
+}
+
+resource "aws_lambda_invocation" "capstone" {
+  function_name = aws_lambda_function.capstone.function_name
+
+  # no specific value is required. just only trigger the function
+  input = jsonencode({
+    kes = "value"
+  })
 }
